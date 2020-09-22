@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { connect } from 'react-redux';
 import { updateLog } from '../../actions/logActions';
+import TechniciansOption from '../techs/TechniciansOption';
 const EditLogModal = ({ currentLog, updateLog }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
@@ -37,7 +38,7 @@ const EditLogModal = ({ currentLog, updateLog }) => {
   };
 
   return (
-    <div id='edit-log-modal' className='modal' style={modalStyle}>
+    <div id='edit-log-modal' className='modal'>
       <div className='modal-content'>
         <h4>Enter System Log</h4>
         <div className='row'>
@@ -64,9 +65,7 @@ const EditLogModal = ({ currentLog, updateLog }) => {
               <option value='' disabled>
                 Select Technician
               </option>
-              <option value='John Doe'>John Doe</option>
-              <option value='Sam Smith'>Sam Smith</option>
-              <option value='Sara Wilson'>Sara Wilson</option>
+              <TechniciansOption />
             </select>
           </div>
         </div>
@@ -99,11 +98,6 @@ const EditLogModal = ({ currentLog, updateLog }) => {
       </div>
     </div>
   );
-};
-
-const modalStyle = {
-  width: '75%',
-  height: '75%',
 };
 
 const mapStateToProps = (state) => ({

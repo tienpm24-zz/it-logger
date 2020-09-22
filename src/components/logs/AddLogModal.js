@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addLog } from '../../actions/logActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import TechniciansOption from '../techs/TechniciansOption';
 
 const AddLogModal = ({ addLog }) => {
   const [message, setMessage] = useState('');
@@ -29,7 +30,7 @@ const AddLogModal = ({ addLog }) => {
   };
 
   return (
-    <div id='add-log-modal' className='modal' style={modalStyle}>
+    <div id='add-log-modal' className='modal'>
       <div className='modal-content'>
         <h4>Enter System Log</h4>
         <div className='row'>
@@ -56,9 +57,7 @@ const AddLogModal = ({ addLog }) => {
               <option value='' disabled>
                 Select Technician
               </option>
-              <option value='John Doe'>John Doe</option>
-              <option value='Sam Smith'>Sam Smith</option>
-              <option value='Sara Wilson'>Sara Wilson</option>
+              <TechniciansOption />
             </select>
           </div>
         </div>
@@ -91,11 +90,6 @@ const AddLogModal = ({ addLog }) => {
       </div>
     </div>
   );
-};
-
-const modalStyle = {
-  width: '75%',
-  height: '75%',
 };
 
 export default connect(null, { addLog })(AddLogModal);
