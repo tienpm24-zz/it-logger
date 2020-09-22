@@ -12,7 +12,7 @@ export const TechniciansOption = ({ technician: { techs }, getTechs }) => {
     </option>
   ) : (
     techs.map((tech) => (
-      <option value={techs.id}>
+      <option value={techs.id} key={tech.id}>
         {tech.firstName} {tech.lastName}
       </option>
     ))
