@@ -1,4 +1,5 @@
 import {
+  ADD_TECH,
   DELETE_TECH,
   GET_TECHS,
   SET_LOADING,
@@ -24,6 +25,11 @@ export default (state = inititalState, action) => {
       return {
         ...state,
         techs: state.techs.filter((tech) => tech.id !== action.payload),
+      };
+    case ADD_TECH:
+      return {
+        ...state,
+        techs: [...state.techs, action.payload],
       };
     case TECHS_ERROR:
       return {
