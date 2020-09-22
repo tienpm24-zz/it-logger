@@ -1,13 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
-const EditLogModal = () => {
+import { connect } from 'react-redux';
+import { updateLog } from '../../actions/logActions';
+const EditLogModal = ({ currentLog, updateLog }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState('');
 
-  const onsubmit = () => {
-    if (message || tech) {
-      console.log(message, tech, attention);
+  useEffect(() => {
+    if (currentLog) {
+      setMessage(currentLog.message);
+      setAttention(currentLog.attention);
+      setTech(currentLog.tech);
+    }
+  }, [currentLog]);
+
+  const onSubmit = () => {
+    if (message && tech) {
+      const updatedLog = {
+        id: currentLog.id,
+        message,
+        attention,
+        tech,
+        date: new Date(),
+      };
+      updateLog(updatedLog);
+      M.toast({ html: `Log Id #${currentLog.id} has been updated ` });
       setMessage('');
       setTech('');
       setAttention(false);
@@ -73,7 +91,7 @@ const EditLogModal = () => {
       <div className='modal-footer'>
         <a
           href='#!'
-          onClick={onsubmit}
+          onClick={onSubmit}
           className='modal-close waves-effect blue waves-light btn'
         >
           Enter
@@ -87,4 +105,9 @@ const modalStyle = {
   width: '75%',
   height: '75%',
 };
-export default EditLogModal;
+
+const mapStateToProps = (state) => ({
+  currentLog: state.log.current,
+});
+
+export default connect(mapStateToProps, { updateLog })(EditLogModal);
